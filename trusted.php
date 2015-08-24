@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Trusted
-Description: Allows shop owners to add a widget with the Trusted.ro badge
+Description: Provides a Trusted.ro widget.
 Version: 1.0
 Author: Florin Buga
 License: GPL2
