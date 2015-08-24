@@ -5,8 +5,12 @@ define("TRUSTED_RO_URL", 'http://trusted.ro/assets/verify.php?id=');
 class Trusted_Widget extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array( 'description' => __( 'A badge with the Trusted.ro logo.', 'trusted' ) );
-		parent::__construct( 'trusted_widget', __( 'Trusted Badge', 'trusted' ), $widget_ops );
+
+		parent::__construct(
+		  'trusted_widget',
+		  __( 'Trusted Badge', 'trusted' ),
+		  array( 'description' => __( 'A badge with the Trusted.ro logo.', 'trusted' ) )
+		);
 	}
 
 
