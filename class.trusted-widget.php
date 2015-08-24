@@ -12,32 +12,6 @@ class Trusted_Widget extends WP_Widget {
 		  array( 'description' => __( 'A badge with the Trusted.ro logo.', 'trusted' ) )
 		);
 	}
-
-	// Widget front-end
-	public function widget( $args, $instance ) {
-
-		// Before and after widget arguments are defined by themes
-		echo $args['before_widget'];
-
-		// Widget title
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'];
-			echo esc_html( $instance['title'] );
-			echo $args['after_title'];
-		}
-		
-		// Widget body
-		$url = self::VERIFICATION_URL . empty( $instance['trusted_id'] ) ? '' : $instance[ 'trusted_id' ];
-?>
-
-		<a class="trusted" title="Afla detalii despre acest magazin" style="cursor: pointer;" 
-			onclick="window.open('<?php echo urlencode($url); ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
-			<img src="<?php echo TRUSTED__PLUGIN_URL . 'img/logo_trusted_vertical.png'; ?>">
-		</a>
-
-<?php 
-		echo $args['after_widget'];
-	}
 	
 	// Widget backend
 	public function form( $instance ) {
@@ -72,6 +46,31 @@ class Trusted_Widget extends WP_Widget {
 		return $instance;
 	}
 
+	// Widget front-end
+	public function widget( $args, $instance ) {
+
+		// Before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+
+		// Widget title
+		if ( ! empty( $instance['title'] ) ) {
+			echo $args['before_title'];
+			echo esc_html( $instance['title'] );
+			echo $args['after_title'];
+		}
+		
+		// Widget body
+		$url = self::VERIFICATION_URL . empty( $instance['trusted_id'] ) ? '' : $instance[ 'trusted_id' ];
+?>
+
+		<a class="trusted" title="Afla detalii despre acest magazin" style="cursor: pointer;" 
+			onclick="window.open('<?php echo urlencode($url); ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
+			<img src="<?php echo TRUSTED__PLUGIN_URL . 'img/logo_trusted_vertical.png'; ?>">
+		</a>
+
+<?php 
+		echo $args['after_widget'];
+	}
 }
 
 function trusted_register_widget() {
