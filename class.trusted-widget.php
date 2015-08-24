@@ -1,8 +1,8 @@
 <?php
 
-define("TRUSTED_RO_URL", 'http://trusted.ro/assets/verify.php?id=');
-
 class Trusted_Widget extends WP_Widget {
+  
+  const VERIFICATION_URL = 'http://trusted.ro/assets/verify.php?id=';
 
 	public function __construct() {
 
@@ -28,7 +28,7 @@ class Trusted_Widget extends WP_Widget {
 		}
 		
 		// Widget body
-		$url = TRUSTED_RO_URL . empty( $instance['trusted_id'] ) ? '' : $instance[ 'trusted_id' ];
+		$url = self::VERIFICATION_URL . empty( $instance['trusted_id'] ) ? '' : $instance[ 'trusted_id' ];
 		?>
 		<a class="trusted" title="Afla detalii despre acest magazin" style="cursor: pointer;" 
 			onclick="window.open('<?php echo urlencode($url); ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
