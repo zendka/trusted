@@ -60,11 +60,11 @@ class Trusted_Widget extends WP_Widget {
 		}
 		
 		// Widget body
-		$url = self::VERIFICATION_URL . empty( $instance['trusted_id'] ) ? '' : $instance[ 'trusted_id' ];
+		$url = self::VERIFICATION_URL . urlencode( $instance[ 'trusted_id' ] );
 ?>
 
 		<a class="trusted" title="Afla detalii despre acest magazin" style="cursor: pointer;" 
-			onclick="window.open('<?php echo urlencode($url); ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
+		    onclick="window.open('<?php echo $url; ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
 			<img src="<?php echo TRUSTED__PLUGIN_URL . 'img/logo_trusted_vertical.png'; ?>">
 		</a>
 
