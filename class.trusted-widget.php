@@ -13,7 +13,6 @@ class Trusted_Widget extends WP_Widget {
 		);
 	}
 
-
 	// Widget front-end
 	public function widget( $args, $instance ) {
 
@@ -21,65 +20,55 @@ class Trusted_Widget extends WP_Widget {
 		echo $args['before_widget'];
 
 		// Widget title
-		if ( !empty( $instance['title'] ) ) {
+		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'];
-			echo apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
+			echo esc_html( $instance['title'] );
 			echo $args['after_title'];
 		}
 		
 		// Widget body
 		$url = self::VERIFICATION_URL . empty( $instance['trusted_id'] ) ? '' : $instance[ 'trusted_id' ];
-		?>
+?>
+
 		<a class="trusted" title="Afla detalii despre acest magazin" style="cursor: pointer;" 
 			onclick="window.open('<?php echo urlencode($url); ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
 			<img src="<?php echo plugins_url( 'img/logo_trusted_vertical.png', __FILE__ ); ?>">
 		</a>
-		<?php 
 
+<?php 
 		echo $args['after_widget'];
 	}
-	
 	
 	// Widget backend
 	public function form( $instance ) {
 		
 		// Input for widget title
-		$title = isset( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
-		?>
+		$title = $instance ? $instance['title'] : '';
+?>
+
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-				<?php _e( 'Title:' ); ?>
-			</label> 
-			<input type="text"
-				class="widefat"
-				id="<?php echo $this->get_field_id( 'title' ); ?>"
-				name="<?php echo $this->get_field_name( 'title' ); ?>"
-				value="<?php echo esc_attr( $title ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:' , 'trusted'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
-		<?php
+
+<?php
 		
 		// Input for Trusted ID
-		?>
+		$trusted_id = $instance ? $instance[ 'trusted_id' ] : '';
+?>
+
 		<p>
-			<label for="<?php echo $this->get_field_id( 'trusted_id' ); ?>">
-				<?php __( 'Trusted ID:', 'trusted' ); ?>
-			</label> 
-			<input type="text"
-				class="widefat"
-				id="<?php echo $this->get_field_id( 'trusted_id' ); ?>"
-				name="<?php echo $this->get_field_name( 'trusted_id' ); ?>"
-				value="<?php echo empty( $instance[ 'trusted_id' ] ) ? '' : esc_attr( $instance[ 'trusted_id' ] ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'trusted_id' ); ?>"><?php esc_html_e( 'Trusted ID:', 'trusted' ); ?></label> 
+  		<input class="widefat" id="<?php echo $this->get_field_id( 'trusted_id' ); ?>" name="<?php echo $this->get_field_name( 'trusted_id' ); ?>" type="text" value="<?php echo esc_attr( $trusted_id ); ?>" />
 		</p>
-		<?php 
+
+<?php 
 	}
-	
 	
 	// Sanitize widget form values as they are saved
 	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title']      = empty( $new_instance['title'] )      ? '' : strip_tags( $new_instance['title'] );
-		$instance['trusted_id'] = empty( $new_instance['trusted_id'] ) ? '' : strip_tags( $new_instance['trusted_id'] );
-
+		$instance['title']      = strip_tags( $new_instance['title'] );
+		$instance['trusted_id'] = strip_tags( $new_instance['trusted_id'] );
 		return $instance;
 	}
 
