@@ -8,11 +8,10 @@ class Trusted_Widget extends WP_Widget {
 	 * Register widget with WordPress.
 	 */
 	public function __construct() {
-
 		parent::__construct(
-		  'trusted_widget',
-		  __( 'Trusted Badge', 'trusted' ),
-		  array( 'description' => __( 'A badge with the Trusted.ro logo.', 'trusted' ) )
+		  'trusted_widget', // Base ID
+		  __( 'Trusted Badge', 'trusted' ), // Name
+		  array( 'description' => __( 'A badge with the Trusted.ro logo.', 'trusted' ) ) // Args
 		);
 	}
 	
@@ -24,28 +23,24 @@ class Trusted_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		
-		// Input for widget title
-		$title = $instance ? $instance['title'] : '';
-?>
 
+		// Text input for Title
+    $title = ! empty( $instance['title'] ) ? $instance['title'] : '';
+    ?>
+    <p>
+      <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+      <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+    </p>
+    <?php 
+
+		// Text input for Trusted ID
+		$trusted_id = ! empty( $instance[ 'trusted_id' ] ) ? $instance[ 'trusted_id' ] : '';
+    ?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:' , 'trusted'); ?></label>
-      <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-
-<?php
-		
-		// Input for Trusted ID
-		$trusted_id = $instance ? $instance[ 'trusted_id' ] : '';
-?>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'trusted_id' ); ?>"><?php esc_html_e( 'Trusted ID:', 'trusted' ); ?></label> 
+			<label for="<?php echo $this->get_field_id( 'trusted_id' ); ?>"><?php _e( 'Trusted ID:', 'trusted' ); ?></label> 
   		<input class="widefat" id="<?php echo $this->get_field_id( 'trusted_id' ); ?>" name="<?php echo $this->get_field_name( 'trusted_id' ); ?>" type="text" value="<?php echo esc_attr( $trusted_id ); ?>" />
 		</p>
-
-<?php 
+    <?php 
 	}
 	
 	/**
@@ -59,8 +54,9 @@ class Trusted_Widget extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance['title']      = strip_tags( $new_instance['title'] );
-		$instance['trusted_id'] = strip_tags( $new_instance['trusted_id'] );
+    $instance = array();
+    $instance['title']      = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['trusted_id'] = ( ! empty( $new_instance['trusted_id'] ) ) ? strip_tags( $new_instance['trusted_id'] ) : '';
 		return $instance;
 	}
 
@@ -78,11 +74,8 @@ class Trusted_Widget extends WP_Widget {
 		echo $args['before_widget'];
 
 		// Widget title
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'];
-			echo esc_html( $instance['title'] );
-			echo $args['after_title'];
-		}
+    if ( ! empty( $instance['title'] ) ) {
+      echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		
 		// Widget body
 		$url = self::VERIFICATION_URL . urlencode( $instance[ 'trusted_id' ] );
