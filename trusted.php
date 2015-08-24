@@ -7,6 +7,8 @@ Author: Florin Buga
 License: GPL2
 */
 
+define("TRUSTED_RO_URL", 'http://trusted.ro/assets/verify.php?id=');
+
 class Trusted_Widget extends WP_Widget {
 
 	public function __construct() {
@@ -29,8 +31,7 @@ class Trusted_Widget extends WP_Widget {
 		}
 		
 		// Widget body
-		$url  = 'http://trusted.ro/assets/verify.php?id=';
-		$url .= empty( $instance['trusted_id'] ) ? '' : urlencode( $instance[ 'trusted_id' ] );
+		$url = TRUSTED_RO_URL . empty( $instance['trusted_id'] ) ? '' : urlencode( $instance[ 'trusted_id' ] );
 		?>
 		<a class="trusted" title="Afla detalii despre acest magazin" style="cursor: pointer;" 
 			onclick="window.open('<?php echo $url; ?>', 'TRUSTED', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">		
