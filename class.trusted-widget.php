@@ -95,6 +95,7 @@ class Trusted_Widget extends WP_Widget {
 
         echo $args['after_widget'];
     }
+}
 
 function trusted_register_widget() {
     register_widget( 'Trusted_Widget' );
