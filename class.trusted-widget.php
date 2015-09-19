@@ -82,18 +82,18 @@ class Trusted_Widget extends WP_Widget {
         // Widget title
         if ( ! empty( $instance['title'] ) ) {
             echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-
-            // Widget body
-            $url = self::VERIFICATION_URL . urlencode( $instance[ 'trusted_id' ] );
-
-            ?>
-            <a title="Afla detalii despre acest magazin" style="cursor: pointer;" onclick="window.open('<?php echo $url; ?>', 'trusted', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">
-                <img src="<?php echo TRUSTED__PLUGIN_URL . 'img/logo_trusted_vertical.png'; ?>">
-            </a>
-            <?php
-
-            echo $args['after_widget'];
         }
+
+        // Widget body
+        $url = self::VERIFICATION_URL . urlencode( $instance[ 'trusted_id' ] );
+        ?>
+        <a title="Afla detalii despre acest magazin" style="cursor: pointer;"
+            onclick="window.open('<?php echo $url; ?>', 'trusted', 'location=no, scrollbars=yes, resizable=yes, toolbar=no, menubar=no, width=600, height=700'); return false;">
+            <img src="<?php echo TRUSTED__PLUGIN_URL . 'img/logo_trusted_vertical.png'; ?>">
+        </a>
+        <?php
+
+        echo $args['after_widget'];
     }
 
 function trusted_register_widget() {
