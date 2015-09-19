@@ -27,7 +27,6 @@ class Trusted_Widget extends WP_Widget {
 
         // Text input for Title
         $title = ! empty( $instance['title'] ) ? $instance['title'] : '';
-
         ?>
         <p>
             <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
