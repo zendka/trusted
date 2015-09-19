@@ -5,7 +5,7 @@ class Trusted_Widget extends WP_Widget {
     const VERIFICATION_URL = 'http://trusted.ro/assets/verify.php?id=';
 
     /**
-     * Register widget with WordPress.
+     *  Sets up the widgets name, etc.
      */
     public function __construct() {
 
@@ -17,7 +17,7 @@ class Trusted_Widget extends WP_Widget {
     }
 
     /**
-     * Back-end widget form.
+     * Outputs the back-end widget form
      *
      * @see WP_Widget::form()
      *
@@ -46,7 +46,9 @@ class Trusted_Widget extends WP_Widget {
     }
 
     /**
-     * Sanitize widget form values as they are saved.
+     * Processes the back-end widget form on save
+     *
+     * Sanitizes form values.
      *
      * @see WP_Widget::update()
      *
@@ -65,7 +67,7 @@ class Trusted_Widget extends WP_Widget {
     }
 
     /**
-     * Front-end display of widget.
+     * Outputs the content of the widget on the frontend
      *
      * @see WP_Widget::widget()
      *
