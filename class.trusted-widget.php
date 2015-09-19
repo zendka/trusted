@@ -97,7 +97,7 @@ class Trusted_Widget extends WP_Widget {
     }
 }
 
-function trusted_register_widget() {
+// Register widget
+add_action( 'widgets_init', function(){
     register_widget( 'Trusted_Widget' );
-}
-add_action( 'widgets_init', 'trusted_register_widget' );
+});
